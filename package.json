@@ -8,10 +8,10 @@
     "build": "webpack --env NODE_ENV=local --env production --progress",
     "lint": "eslint --fix --quiet src/**/*.{ts,tsx}"
   },
-
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,css,scss}": [
-      "eslint . --fix", "git add"
+      "eslint . --fix",
+      "git add"
     ]
   },
   "husky": {
@@ -30,6 +30,7 @@
     "@fortawesome/react-fontawesome": "^0.1.13",
     "axios": "^0.21.0",
     "core-js": "^3.8.2",
+    "html-react-parser": "^1.1.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-redux": "^7.2.2",

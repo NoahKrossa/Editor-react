@@ -15,7 +15,7 @@
     "strictNullChecks": true,
     "esModuleInterop": true,
     "declaration": true,
-    "declarationDir": "declarations/"
+    "declarationDir": "./src/declarations"
   },
   "exclude": ["node_modules"]
 }

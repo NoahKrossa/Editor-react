@@ -79,6 +79,7 @@ module.exports = (env) => {
         errors: true
       },
       port: 8000
-    }
+    },
+    devtool: 'source-map'
   }
 }
