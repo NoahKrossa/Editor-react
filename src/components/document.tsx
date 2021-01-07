@@ -1,30 +1,36 @@
 import React from 'react'
 import { generateNodeComponentHOC } from './node'
-import ContentEditable from 'react-contenteditable'
-import { connect } from 'react-redux'
+import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from '../store'
-import { fetchDocumentSuccessAction } from '../store/actions'
 import { DocumentNode, DocumentState } from '../store/types'
 
-interface DocumentComponentProps {
-  nodeList: DocumentNode[]
-  loading: boolean
-  error: string
+const mapStateToProps = (state: RootState): DocumentState => {
+  const { nodeList, loading, error } = state.document
+  return {
+    nodeList,
+    loading,
+    error
+  }
 }
-interface DocumentComponentDispatchs {
-  fetchNodes: () => void
-  removeNode: (id: string) => void
-  updtateNode: (node: DocumentNode) => void
-  addNode: (node: DocumentNode) => void
+const mapStateToDispatch = (dispatch: any) => {
+  return {
+    fetchNodes: () => {},
+    removeNode: (id: string) => {},
+    updtateNode: (node: DocumentNode) => {},
+    addNode: (node: DocumentNode) => {}
+  }
 }
-type DocumentComponentPropsType = DocumentComponentDispatchs &
-  DocumentComponentProps
+const connector = connect(mapStateToProps, mapStateToDispatch)
+type PropsFromRedux = ConnectedProps<typeof connector>
+type Props = PropsFromRedux & {
+  /** own props */
+}
 
-class DocumentComponent extends React.Component<DocumentComponentPropsType> {
-  constructor(props: DocumentComponentPropsType) {
+/** Component */
+class DocumentComponent extends React.Component<Props> {
+  constructor(props: Props) {
     super(props)
   }
-
   render() {
     return (
       <div>
@@ -38,33 +44,4 @@ class DocumentComponent extends React.Component<DocumentComponentPropsType> {
     )
   }
 }
-
-function ContentComponent({ HTMLContent }: { HTMLContent: string }) {
-  function handleChanges(e: any) {}
-  return <ContentEditable html={HTMLContent} onChange={handleChanges} />
-}
-
-const mapStateToProps = (state: RootState): DocumentState => {
-  const { nodeList, loading, error } = state.document
-  return {
-    nodeList,
-    loading,
-    error
-  }
-}
-const mapStateToDispatch = (dispatch: any): DocumentComponentDispatchs => {
-  return {
-    fetchNodes: () => {},
-    removeNode: (id: string) => {},
-    updtateNode: (node: DocumentNode) => {},
-    addNode: (node: DocumentNode) => {}
-  }
-}
-
-export const DocumentContainer = connect<
-  DocumentComponentProps,
-  DocumentComponentDispatchs
->(
-  mapStateToProps,
-  mapStateToDispatch
-)(DocumentComponent)
+export default connector(DocumentComponent)
