@@ -1,6 +1,10 @@
 import React from 'react'
-import HTMLReactParser from 'html-react-parser'
-import { DocumentPropsType } from '../../declarations/document'
+import {
+  ContentComponentPropsType,
+  DocumentPropsType
+} from '../../declarations/document'
+import { generateNodeComponentHOC } from './node'
+import ContentEditable from 'react-contenteditable'
 
 export default class DocumentComponent extends React.Component<
   DocumentPropsType,
@@ -11,23 +15,20 @@ export default class DocumentComponent extends React.Component<
   }
   render() {
     const { nodeList } = this.props
-    const Node = generateNodeComponentHOC()
     return (
       <div>
-        <Node />
+        {nodeList.map((node) => {
+          const Node = generateNodeComponentHOC(
+            <ContentComponent HTMLContent={node.content} />
+          )
+          return <Node key={node.id} />
+        })}
       </div>
     )
   }
 }
 
-function ContentComponent({ HTMLContent }: { HTMLContent: string }) {
-  return <>{HTMLReactParser(HTMLContent)}</>
-}
-
-function generateNodeComponentHOC(): React.ComponentType<any> {
-  return class NodeComponent extends React.Component<{ id: string }, {}> {
-    render() {
-      return <div>NODE COMPONENT IN HOC</div>
-    }
-  }
+function ContentComponent({ HTMLContent }: ContentComponentPropsType) {
+  function handleChanges(e: any) {}
+  return <ContentEditable html={HTMLContent} onChange={handleChanges} />
 }
