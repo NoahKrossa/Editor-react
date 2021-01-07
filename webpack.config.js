@@ -35,7 +35,7 @@ module.exports = (env) => {
           use: ['babel-loader']
         },
         {
-          test: /\.(css|scss)$/,
+          test: /\.s?css$/,
           use: [
             'style-loader',
             {
@@ -48,12 +48,12 @@ module.exports = (env) => {
               }
             }
           ],
-          include: /\.m\.css$/
+          include: /\.m\.s?css$/
         },
         {
-          test: /\.(css|scss)$/,
+          test: /\.s?css$/,
           use: ['style-loader', 'css-loader'],
-          exclude: /\.m\.css$/
+          exclude: /\.m\.s?css$/
         }
       ]
     },
