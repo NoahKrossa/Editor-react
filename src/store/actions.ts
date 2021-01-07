@@ -4,7 +4,7 @@ import {
   DOCUMENT_API_FAILURE,
   DOCUMENT_API_REQUEST,
   FETCH_DOCUMENT_SUCCESS,
-  NodeType,
+  DocumentNode,
   REMOVE_DOCUMENT_NODE,
   UPDATE_DOCUMENT_NODE
 } from './types'
@@ -26,7 +26,7 @@ export function documentAPIFailureAction(
 }
 
 export function fetchDocumentSuccessAction(
-  nodeList: NodeType[]
+  nodeList: DocumentNode[]
 ): DocumentActionTypes {
   return {
     type: FETCH_DOCUMENT_SUCCESS,
@@ -34,7 +34,7 @@ export function fetchDocumentSuccessAction(
   }
 }
 
-export function addDocumentNodeAction(node: NodeType): DocumentActionTypes {
+export function addDocumentNodeAction(node: DocumentNode): DocumentActionTypes {
   return {
     type: ADD_DOCUMENT_NODE,
     payload: node
@@ -48,7 +48,9 @@ export function removeDocumentNodeAction(id: string): DocumentActionTypes {
   }
 }
 
-export function updateDocumentNodeAction(node: NodeType): DocumentActionTypes {
+export function updateDocumentNodeAction(
+  node: DocumentNode
+): DocumentActionTypes {
   return {
     type: UPDATE_DOCUMENT_NODE,
     payload: node

@@ -3,24 +3,28 @@ import { generateNodeComponentHOC } from './node'
 import ContentEditable from 'react-contenteditable'
 import { connect } from 'react-redux'
 import { RootState } from '../store'
-import { ContentComponentPropsType, NodeType } from '../store/types'
 import { fetchDocumentSuccessAction } from '../store/actions'
+import { DocumentNode, DocumentState } from '../store/types'
 
 interface DocumentComponentProps {
-  nodeList: NodeType[]
+  nodeList: DocumentNode[]
   loading: boolean
   error: string
 }
 interface DocumentComponentDispatchs {
   fetchNodes: () => void
   removeNode: (id: string) => void
-  updtateNode: (node: NodeType) => void
-  addNode: (node: NodeType) => void
+  updtateNode: (node: DocumentNode) => void
+  addNode: (node: DocumentNode) => void
 }
 type DocumentComponentPropsType = DocumentComponentDispatchs &
   DocumentComponentProps
 
 class DocumentComponent extends React.Component<DocumentComponentPropsType> {
+  constructor(props: DocumentComponentPropsType) {
+    super(props)
+  }
+
   render() {
     return (
       <div>
@@ -35,12 +39,12 @@ class DocumentComponent extends React.Component<DocumentComponentPropsType> {
   }
 }
 
-function ContentComponent({ HTMLContent }: ContentComponentPropsType) {
+function ContentComponent({ HTMLContent }: { HTMLContent: string }) {
   function handleChanges(e: any) {}
   return <ContentEditable html={HTMLContent} onChange={handleChanges} />
 }
 
-const mapStateToProps = (state: RootState): DocumentComponentProps => {
+const mapStateToProps = (state: RootState): DocumentState => {
   const { nodeList, loading, error } = state.document
   return {
     nodeList,
@@ -52,8 +56,8 @@ const mapStateToDispatch = (dispatch: any): DocumentComponentDispatchs => {
   return {
     fetchNodes: () => {},
     removeNode: (id: string) => {},
-    updtateNode: (node: NodeType) => {},
-    addNode: (node: NodeType) => {}
+    updtateNode: (node: DocumentNode) => {},
+    addNode: (node: DocumentNode) => {}
   }
 }
 
