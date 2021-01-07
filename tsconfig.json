@@ -14,8 +14,7 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "esModuleInterop": true,
-    "declaration": true,
-    "declarationDir": "./src/declarations"
+    "declaration": true
   },
   "exclude": ["node_modules"]
 }

@@ -1,7 +1,8 @@
 import {
   ADD_DOCUMENT_NODE,
   DocumentActionTypes,
-  DocumentStateType,
+  DocumentNode,
+  DocumentState,
   DOCUMENT_API_FAILURE,
   DOCUMENT_API_REQUEST,
   FETCH_DOCUMENT_SUCCESS,
@@ -9,7 +10,7 @@ import {
   UPDATE_DOCUMENT_NODE
 } from './types'
 
-const initialState: DocumentStateType = {
+const initialState: DocumentState = {
   loading: false,
   nodeList: [{ content: '<h1>hello</h1>', id: '12345' }],
   error: ''
@@ -18,7 +19,7 @@ const initialState: DocumentStateType = {
 export default function documentReducer(
   state = initialState,
   action: DocumentActionTypes
-): DocumentStateType {
+): DocumentState {
   switch (action.type) {
     case DOCUMENT_API_REQUEST:
       return {
@@ -45,12 +46,14 @@ export default function documentReducer(
     case REMOVE_DOCUMENT_NODE:
       return {
         ...state,
-        nodeList: state.nodeList.filter((node) => node.id !== action.payload)
+        nodeList: state.nodeList.filter(
+          (node: DocumentNode) => node.id !== action.payload
+        )
       }
     case UPDATE_DOCUMENT_NODE:
       return {
         ...state,
-        nodeList: state.nodeList.map((node) => {
+        nodeList: state.nodeList.map((node: DocumentNode) => {
           if (node.id === action.payload.id) node = action.payload
           return node
         })

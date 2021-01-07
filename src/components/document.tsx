@@ -3,6 +3,7 @@ import { generateNodeComponentHOC } from './node'
 import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from '../store'
 import { DocumentNode, DocumentState } from '../store/types'
+import styles from './document.m.scss'
 
 const mapStateToProps = (state: RootState): DocumentState => {
   const { nodeList, loading, error } = state.document
@@ -33,7 +34,7 @@ class DocumentComponent extends React.Component<Props> {
   }
   render() {
     return (
-      <div>
+      <div className={styles.document}>
         {/* {nodeList.map((node) => {
           const Node = generateNodeComponentHOC(
             <ContentComponent HTMLContent={node.content} />
