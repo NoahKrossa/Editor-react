@@ -40,12 +40,14 @@ export default function documentReducer(
     case ADD_DOCUMENT_NODE: {
       return {
         ...state,
+        loading: false,
         nodeList: [action.payload, ...state.nodeList]
       }
     }
     case REMOVE_DOCUMENT_NODE:
       return {
         ...state,
+        loading: false,
         nodeList: state.nodeList.filter(
           (node: DocumentNode) => node.id !== action.payload
         )
@@ -53,6 +55,7 @@ export default function documentReducer(
     case UPDATE_DOCUMENT_NODE:
       return {
         ...state,
+        loading: false,
         nodeList: state.nodeList.map((node: DocumentNode) => {
           if (node.id === action.payload.id) node = action.payload
           return node
