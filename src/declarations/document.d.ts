@@ -5,3 +5,10 @@ export declare type NodeType = {
 export declare type DocumentPropsType = {
   nodeList: NodeType[]
 }
+export declare type NodeComponentPropsType = {
+  id: string
+  removeNode: (id: string) => void
+}
+export declare type ContentComponentPropsType = {
+  HTMLContent: string
+}
