@@ -11,7 +11,25 @@ export function generateNodeComponentHOC(
   }
 }
 
-export function ContentComponent({ HTMLContent }: { HTMLContent: string }) {
+type props = {
+  HTMLContent: string
+  id: string
+  update: any
+}
+
+export function ContentComponent({ HTMLContent, id, update }: props) {
   function handleChanges(e: any) {}
-  return <ContentEditable html={HTMLContent} onChange={handleChanges} />
+  function updateNodeState(e: any) {
+    update({
+      id,
+      content: e.target.innerHTML
+    })
+  }
+  return (
+    <ContentEditable
+      html={HTMLContent}
+      onBlur={updateNodeState}
+      onChange={handleChanges}
+    />
+  )
 }
