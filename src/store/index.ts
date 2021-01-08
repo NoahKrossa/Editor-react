@@ -15,3 +15,4 @@ const Store = createStore(
 )
 
 export default Store
+export type AppDispatch = typeof Store.dispatch
