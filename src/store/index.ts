@@ -13,4 +13,5 @@ const Store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(Thunk))
 )
+
 export default Store
