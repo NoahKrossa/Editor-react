@@ -22,7 +22,7 @@ export default function ToolbarComponent() {
   }
 
   return (
-    <div className={styles.node_menu}>
+    <div className={styles.toolbar}>
       <button
         onClick={handleButtonClick}
         name="bold"
