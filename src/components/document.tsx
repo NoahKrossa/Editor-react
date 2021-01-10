@@ -44,7 +44,6 @@ class DocumentComponent extends React.Component<Props> {
   }
   render() {
     const { nodeList, updateNode } = this.props
-
     return (
       <div className={styles.document}>
         {nodeList.map((node) => {
