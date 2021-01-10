@@ -1,5 +1,7 @@
 import React from 'react'
 
+import ToobarComponent from '../toobar/toolbar.component'
+
 /** Style module */
 import styles from './node.m.scss'
 /****************************************************************************/
@@ -14,7 +16,12 @@ export function generateNodeComponentHOC(
 ): React.ComponentType<any> {
   return class NodeComponent extends React.Component<{ id: string }, {}> {
     render() {
-      return <div className={styles.node}>{ContentComponent}</div>
+      return (
+        <div className={styles.node}>
+          <ToobarComponent />
+          {ContentComponent}
+        </div>
+      )
     }
   }
 }

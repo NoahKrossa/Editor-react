@@ -6,18 +6,6 @@ import React from 'react'
 import ContentEditable from 'react-contenteditable'
 /*****************************************************************/
 
-/**
- * Using Fontaewesome to render button icons
- */
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faBold,
-  faItalic,
-  faLink,
-  faUnderline
-} from '@fortawesome/free-solid-svg-icons'
-/*****************************************************************/
-
 /** Style module */
 import styles from './content.m.scss'
 /*****************************************************************/
@@ -49,22 +37,6 @@ export function ContentComponent({ HTMLContent, id, update }: props) {
 
   return (
     <div>
-      {/* Later has to refactor, bellow commented code into a component*/}
-      {/* <div className={styles.node_menu}>
-        <button onClick={handleButtonClick} className={styles.button}>
-          <FontAwesomeIcon icon={faBold} />
-        </button>
-        <button onClick={handleButtonClick} className={styles.button}>
-          <FontAwesomeIcon icon={faItalic} />
-        </button>
-        <button onClick={handleButtonClick} className={styles.button}>
-          <FontAwesomeIcon icon={faUnderline} />
-        </button>
-        <button onClick={handleButtonClick} className={styles.button}>
-          <FontAwesomeIcon icon={faLink} />
-        </button>
-      </div> */}
-
       <ContentEditable
         html={HTMLContent}
         onBlur={handleBlur}
