@@ -22,22 +22,22 @@ type props = {
   update: any
 }
 export function ContentComponent({ HTMLContent, id, update }: props) {
+  const [isFocused, setIsFocused] = React.useState({ value: false })
   function handleChanges(e: any) {}
-
   function handleBlur(e: any) {
     update({
       id,
       content: e.target.innerHTML
     })
+    setIsFocused({ value: false })
   }
-
-  function handleFocus(e: any) {}
-
-  function handleButtonClick(e: any) {}
-
+  function handleFocus(e: any) {
+    setIsFocused({ value: true })
+  }
   return (
     <div>
       <ContentEditable
+        className={isFocused.value ? styles.contentEditable : ''}
         html={HTMLContent}
         onBlur={handleBlur}
         onChange={handleChanges}
