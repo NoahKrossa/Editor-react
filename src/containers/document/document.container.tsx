@@ -1,15 +1,34 @@
 import React from 'react'
-import { generateNodeComponentHOC, ContentComponent } from './node'
+
+/** Connect is for connect DocumentContainer with store
+ * ConnectedProps is for generate wrap type from redux props
+ */
 import { connect, ConnectedProps } from 'react-redux'
-import { AppDispatch, RootState } from '../store'
-import { DocumentState } from '../store/types'
+/******************************************************** */
+
+import { generateNodeComponentHOC } from '../../components/node/node.component'
+import { ContentComponent } from '../../components/content/content.component'
+
+/** Importing AppDispatch, RootState and DocumentState types */
+import { AppDispatch, RootState } from '../../store'
+import { DocumentState } from '../../store/types'
+/******************************************************** */
+
+/** Style module */
 import styles from './document.m.scss'
+/******************************************************** */
+
+/** Importing redux actions (these are not asynchronous)
+ * to dispatch async actions, it's most be create async funcs
+ * to run this, as you can see in mapStateToProps object
+ */
 import {
   documentAPIRequestAction,
   fetchDocumentSuccessAction,
   removeDocumentNodeAction,
   updateDocumentNodeAction
-} from '../store/actions'
+} from '../../store/actions'
+/******************************************************** */
 
 const mapStateToProps = (state: RootState): DocumentState => {
   const { nodeList, loading, error } = state.document
@@ -19,6 +38,8 @@ const mapStateToProps = (state: RootState): DocumentState => {
     error
   }
 }
+
+/** Async dispatches */
 const mapStateToDispatch = {
   fetchNodes: () => async (dispatch: AppDispatch) => {
     dispatch(documentAPIRequestAction())

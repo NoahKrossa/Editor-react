@@ -1,5 +1,14 @@
 import React from 'react'
+/**
+ * This components helps to edit inner html of each document node,
+ * avoiding use of dangerouslySetInnerHTML
+ * */
 import ContentEditable from 'react-contenteditable'
+/*****************************************************************/
+
+/**
+ * Using Fontaewesome to render button icons
+ */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faBold,
@@ -7,24 +16,23 @@ import {
   faLink,
   faUnderline
 } from '@fortawesome/free-solid-svg-icons'
-import styles from './document.m.scss'
+/*****************************************************************/
 
-export function generateNodeComponentHOC(
-  ContentComponent: any
-): React.ComponentType<any> {
-  return class NodeComponent extends React.Component<{ id: string }, {}> {
-    render() {
-      return <div className={styles.node}>{ContentComponent}</div>
-    }
-  }
-}
+/** Style module */
+import styles from './content.m.scss'
+/*****************************************************************/
 
+/**
+ * ContentComponent is just a rendder prop component.
+ * Get data from the container and use ContentEditable to render it,
+ * also recive a update function to update node content from redux
+ * state.
+ */
 type props = {
   HTMLContent: string
   id: string
   update: any
 }
-
 export function ContentComponent({ HTMLContent, id, update }: props) {
   function handleChanges(e: any) {}
 
@@ -41,7 +49,8 @@ export function ContentComponent({ HTMLContent, id, update }: props) {
 
   return (
     <div>
-      <div className={styles.node_menu}>
+      {/* Later has to refactor, bellow commented code into a component*/}
+      {/* <div className={styles.node_menu}>
         <button onClick={handleButtonClick} className={styles.button}>
           <FontAwesomeIcon icon={faBold} />
         </button>
@@ -54,7 +63,7 @@ export function ContentComponent({ HTMLContent, id, update }: props) {
         <button onClick={handleButtonClick} className={styles.button}>
           <FontAwesomeIcon icon={faLink} />
         </button>
-      </div>
+      </div> */}
 
       <ContentEditable
         html={HTMLContent}
