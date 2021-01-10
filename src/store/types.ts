@@ -1,6 +1,11 @@
 export interface DocumentNode {
   id: string
   content: string
+  toolbar?: {
+    bold: boolean
+    italic: boolean
+    underline: boolean
+  }
 }
 
 export interface DocumentState {
@@ -15,6 +20,7 @@ export const FETCH_DOCUMENT_SUCCESS = 'FETCH_DOCUMENT_SUCCESS'
 export const ADD_DOCUMENT_NODE = 'ADD_DOCUMENT_NODE'
 export const REMOVE_DOCUMENT_NODE = 'REMOVE_DOCUMENT_NODE'
 export const UPDATE_DOCUMENT_NODE = 'UPDATE_DOCUMENT_NODE'
+export const UPDATE_TOOLBAR = 'UPDATE_TOOLBAR'
 
 /** Actions */
 interface Action<T, P> {
@@ -40,6 +46,15 @@ export interface RemoveDocumentNodeAction
 export interface UpdateDocumentNodeAction
   extends Action<typeof UPDATE_DOCUMENT_NODE, DocumentNode> {}
 
+/** Toolbar */
+export type ToolbarButtonType = {
+  name: 'underline' | 'italic' | 'bold'
+  state: boolean
+  nodeId: string
+}
+export interface UpdateToolbar
+  extends Action<typeof UPDATE_TOOLBAR, ToolbarButtonType> {}
+
 export declare type DocumentActionTypes =
   | DocumentAPIRequestAction
   | DocumentAPIFailureAction
@@ -47,3 +62,4 @@ export declare type DocumentActionTypes =
   | AddDocumentNodeAction
   | RemoveDocumentNodeAction
   | UpdateDocumentNodeAction
+  | UpdateToolbar

@@ -7,7 +7,8 @@ import {
   DOCUMENT_API_REQUEST,
   FETCH_DOCUMENT_SUCCESS,
   REMOVE_DOCUMENT_NODE,
-  UPDATE_DOCUMENT_NODE
+  UPDATE_DOCUMENT_NODE,
+  UPDATE_TOOLBAR
 } from './types'
 
 const initialState: DocumentState = {
@@ -58,6 +59,22 @@ export default function documentReducer(
         loading: false,
         nodeList: state.nodeList.map((node: DocumentNode) => {
           if (node.id === action.payload.id) node = action.payload
+          return node
+        })
+      }
+    case UPDATE_TOOLBAR:
+      return {
+        ...state,
+        nodeList: state.nodeList.map((node: DocumentNode) => {
+          if (node.id === action.payload.nodeId) {
+            if (!node.toolbar)
+              node.toolbar = {
+                bold: false,
+                italic: false,
+                underline: false
+              }
+            node.toolbar[action.payload.name] = action.payload.state
+          }
           return node
         })
       }

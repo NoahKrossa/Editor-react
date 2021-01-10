@@ -6,7 +6,9 @@ import {
   FETCH_DOCUMENT_SUCCESS,
   DocumentNode,
   REMOVE_DOCUMENT_NODE,
-  UPDATE_DOCUMENT_NODE
+  UPDATE_DOCUMENT_NODE,
+  UPDATE_TOOLBAR,
+  ToolbarButtonType
 } from './types'
 
 export function documentAPIRequestAction(): DocumentActionTypes {
@@ -54,5 +56,20 @@ export function updateDocumentNodeAction(
   return {
     type: UPDATE_DOCUMENT_NODE,
     payload: node
+  }
+}
+
+export function UpdateToolbar(
+  buttonName: 'bold' | 'italic' | 'underline',
+  state: boolean,
+  id: string
+): DocumentActionTypes {
+  return {
+    type: UPDATE_TOOLBAR,
+    payload: <ToolbarButtonType>{
+      name: buttonName,
+      state,
+      nodeId: id
+    }
   }
 }
