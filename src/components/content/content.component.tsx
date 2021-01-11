@@ -20,20 +20,33 @@ type props = {
   HTMLContent: string
   id: string
   update: any
+  removeSelf: any
 }
-export function ContentComponent({ HTMLContent, id, update }: props) {
+export function ContentComponent({
+  HTMLContent,
+  id,
+  update,
+  removeSelf
+}: props) {
   const [isFocused, setIsFocused] = React.useState({ value: false })
   function handleChanges(e: any) {}
   function handleBlur(e: any) {
+    setIsFocused({ value: false })
     update({
       id,
       content: e.target.innerHTML
     })
-    setIsFocused({ value: false })
   }
   function handleFocus(e: any) {
     setIsFocused({ value: true })
   }
+
+  function handleKeydown(e: any) {
+    const innerText = e.target.children[0].innerText.trim()
+    if (!innerText && e.code === 'Backspace') removeSelf(id)
+    return
+  }
+
   return (
     <div>
       <ContentEditable
@@ -42,6 +55,7 @@ export function ContentComponent({ HTMLContent, id, update }: props) {
         onBlur={handleBlur}
         onChange={handleChanges}
         onFocus={handleFocus}
+        onKeyDown={handleKeydown}
       />
     </div>
   )

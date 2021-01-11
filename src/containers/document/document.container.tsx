@@ -11,7 +11,7 @@ import { ContentComponent } from '../../components/content/content.component'
 
 /** Importing AppDispatch, RootState and DocumentState types */
 import { AppDispatch, RootState } from '../../store'
-import { DocumentState } from '../../store/types'
+import { DocumentNode, DocumentState } from '../../store/types'
 /******************************************************** */
 
 /** Style module */
@@ -23,6 +23,7 @@ import styles from './document.m.scss'
  * to run this, as you can see in mapStateToProps object
  */
 import {
+  addDocumentNodeAction,
   documentAPIRequestAction,
   fetchDocumentSuccessAction,
   removeDocumentNodeAction,
@@ -43,13 +44,20 @@ const mapStateToProps = (state: RootState): DocumentState => {
 const mapStateToDispatch = {
   fetchNodes: () => async (dispatch: AppDispatch) => {
     dispatch(documentAPIRequestAction())
-    await dispatch(
-      fetchDocumentSuccessAction([{ id: '123', content: '<h2>sdfsfs</h2>' }])
-    )
+    await dispatch(fetchDocumentSuccessAction([]))
   },
-  updateNode: () => async (dispatch: AppDispatch) => {},
-  removeNode: () => async (dispatch: AppDispatch) => {},
-  addNode: () => async (dispatch: AppDispatch) => {}
+
+  updateNode: (node: DocumentNode) => (dispatch: AppDispatch) => {
+    dispatch(updateDocumentNodeAction(node))
+  },
+
+  removeNode: (id: string) => async (dispatch: AppDispatch) => {
+    await dispatch(removeDocumentNodeAction(id))
+  },
+
+  addNode: (node: DocumentNode) => async (dispatch: AppDispatch) => {
+    await dispatch(addDocumentNodeAction(node))
+  }
 }
 
 const connector = connect(mapStateToProps, mapStateToDispatch)
@@ -64,7 +72,7 @@ class DocumentComponent extends React.Component<Props> {
     super(props)
   }
   render() {
-    const { nodeList, updateNode } = this.props
+    const { nodeList, updateNode, removeNode } = this.props
     return (
       <div className={styles.document}>
         {nodeList.map((node) => {
@@ -73,6 +81,7 @@ class DocumentComponent extends React.Component<Props> {
               HTMLContent={node.content}
               id={node.id}
               update={updateNode}
+              removeSelf={removeNode}
             />
           )
           return <Node key={node.id} />
